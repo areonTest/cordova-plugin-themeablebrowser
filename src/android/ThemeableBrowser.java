@@ -52,6 +52,8 @@ import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.webkit.SslErrorHandler;
+import android.net.http.SslError;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -1335,6 +1337,12 @@ public class ThemeableBrowser extends CordovaPlugin {
                 sendUpdate(obj, true, PluginResult.Status.ERROR);
             } catch (JSONException ex) {
             }
+        }
+        
+        public void onReceivedSslError(WebView view,
+                    SslErrorHandler handler, SslError error) {
+            Log.e("SSLERROR", "Received SSL error"+ error.toString());
+            handler.proceed();
         }
     }
 
